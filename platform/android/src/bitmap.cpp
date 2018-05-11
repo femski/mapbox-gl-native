@@ -15,10 +15,7 @@ public:
         }
     }
     ~PixelGuard() {
-        const int result = AndroidBitmap_unlockPixels(&env, jni::Unwrap(*bitmap));
-        if (result != ANDROID_BITMAP_RESULT_SUCCESS) {
-            throw std::runtime_error("bitmap decoding: could not unlock pixels");
-        }
+        AndroidBitmap_unlockPixels(&env, jni::Unwrap(*bitmap));
     }
 
     auto* get() {
