@@ -118,14 +118,6 @@ RunLoop::Impl::Impl(RunLoop* runLoop_, RunLoop::Type type) : runLoop(runLoop_) {
 RunLoop::Impl::~Impl() {
     alarm.reset();
 
-    if (ALooper_removeFd(loop, fds[PIPE_OUT]) != 1) {
-        throw std::runtime_error("Failed to remove file descriptor from Looper.");
-    }
-
-    if (close(fds[PIPE_IN]) || close(fds[PIPE_OUT])) {
-        throw std::runtime_error("Failed to close file descriptor.");
-    }
-
     ALooper_release(loop);
 
     using namespace mbgl::android;
